@@ -1,0 +1,7 @@
+Build
+build
+.vs
+.vscode
+.idea
+resources/models
+out
