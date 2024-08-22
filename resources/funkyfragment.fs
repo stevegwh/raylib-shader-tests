@@ -10,10 +10,7 @@ out vec4 finalColor;
 // Custom variables
 uniform float seconds;
 uniform vec2 size;
-
-// NOTE: Render size values should be passed from code
-const float renderWidth = 800;
-const float renderHeight = 450;
+uniform vec2 renderSize;
 
 vec3 palette(float t) {
     vec3 a = vec3(0.5, 0.5, 0.5);
@@ -24,6 +21,9 @@ vec3 palette(float t) {
 }
 
 void main() {
+    float renderWidth = renderSize.x;
+    float renderHeight = renderSize.y;
+    
     vec2 uv = fragTexCoord*2.0 - 1.0;
     uv.x *= renderWidth/renderHeight;
     vec2 uv0 = uv;

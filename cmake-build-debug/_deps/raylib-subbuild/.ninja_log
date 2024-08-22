@@ -1,0 +1,21 @@
+# ninja log v6
+0	17	1724254840611554033	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-mkdir	7fd887f0ef4e9102
+0	17	1724254840611554033	/Users/steve/git/raylib-shader-tests/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-mkdir	7fd887f0ef4e9102
+17	4703	1724254845297637277	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-download	6c177b6e856840f7
+17	4703	1724254845297637277	/Users/steve/git/raylib-shader-tests/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-download	6c177b6e856840f7
+4703	4719	1724254845313387477	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-update	a3aac3de8d66e7fa
+4703	4719	1724254845313387477	/Users/steve/git/raylib-shader-tests/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-update	a3aac3de8d66e7fa
+4719	4734	1724254845328712189	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-patch	81a5a21bbe5fe9e9
+4719	4734	1724254845328712189	/Users/steve/git/raylib-shader-tests/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-patch	81a5a21bbe5fe9e9
+4734	4749	1724254845343739910	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-configure	8a64f3fb9f5a548a
+4734	4749	1724254845343739910	/Users/steve/git/raylib-shader-tests/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-configure	8a64f3fb9f5a548a
+4749	4765	1724254845359578399	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-build	1663d681016ecd21
+4749	4765	1724254845359578399	/Users/steve/git/raylib-shader-tests/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-build	1663d681016ecd21
+4765	4780	1724254845374502790	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-install	26ce4f0d19cf8257
+4765	4780	1724254845374502790	/Users/steve/git/raylib-shader-tests/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-install	26ce4f0d19cf8257
+4780	4795	1724254845389409098	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-test	fa52979f8448bb54
+4780	4795	1724254845389409098	/Users/steve/git/raylib-shader-tests/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-test	fa52979f8448bb54
+4795	4816	1724254845411188869	CMakeFiles/raylib-populate-complete	3aafb87cad9832f
+4795	4816	1724254845411188869	raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-done	3aafb87cad9832f
+4795	4816	1724254845411188869	/Users/steve/git/raylib-shader-tests/cmake-build-debug/_deps/raylib-subbuild/CMakeFiles/raylib-populate-complete	3aafb87cad9832f
+4795	4816	1724254845411188869	/Users/steve/git/raylib-shader-tests/cmake-build-debug/_deps/raylib-subbuild/raylib-populate-prefix/src/raylib-populate-stamp/raylib-populate-done	3aafb87cad9832f

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.26)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
-project(raylib-shader-fun)
+project(raylib-shader-tests)
 
 # Dependencies
 set(RAYLIB_VERSION 5.0)
@@ -24,7 +24,7 @@ if (NOT raylib_FOUND) # If there's none, fetch and build raylib
 endif()
 
 # Our Project
-add_executable(${PROJECT_NAME} cylinder_fire.c)
+add_executable(${PROJECT_NAME} fire_test.c)
 
 #set(raylib_VERBOSE 1)
 target_link_libraries(${PROJECT_NAME} raylib)
