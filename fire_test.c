@@ -27,7 +27,7 @@ int main(void)
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
     Model model = LoadModelFromMesh(GenMeshSphere(0.5, 32, 32));
-    // Model model = LoadModelFromMesh(GenMeshCube(1, 1, 1));
+    // Model model = LoadModelFromMesh(GenMeshCylinder(1, 1, 32));
     // Model model = LoadModelFromMesh(GenMeshPlane(1, 1, 1, 1));
 
     Shader shader = LoadShader(NULL, "../resources/shaders/glsl330/rotation.frag");
@@ -53,7 +53,7 @@ int main(void)
         BeginMode3D(camera);
 
         // DrawModel(model, Vector3Zero(), 1.0f, WHITE);
-        DrawModelEx(model, Vector3Zero(), (Vector3){1, 0, 0}, 90, (Vector3){1, 1, 1}, WHITE);
+        DrawModelEx(model, (Vector3){0, 1, 0}, (Vector3){1, 0, 0}, -90, (Vector3){1, 1, 1}, WHITE);
 
         DrawGrid(10, 1.0f); // Draw a grid
         EndMode3D();
