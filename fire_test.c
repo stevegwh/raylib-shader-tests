@@ -15,7 +15,8 @@ const int screenHeight = 720;
 
 typedef struct sModel
 {
-    Model model;
+    Model inner;
+    Model outer;
     Vector3 pos;
 } sModel;
 
@@ -48,11 +49,11 @@ int main(void)
     for (int i = 0; i < 5; ++i)
     {
         sModel model;
-        model.model = LoadModelFromMesh(GenMeshSphere(0.2, 32, 32));
-        model.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
+        model.outer = LoadModelFromMesh(GenMeshSphere(0.2, 32, 32));
+        model.outer.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
         // Using MATERIAL_MAP_EMISSION as a spare slot to use for 2nd texture
-        model.model.materials[0].maps[MATERIAL_MAP_EMISSION].texture = texture2;
-        model.model.materials[0].shader = shader;
+        model.outer.materials[0].maps[MATERIAL_MAP_EMISSION].texture = texture2;
+        model.outer.materials[0].shader = shader;
         model.pos.x = 0;
         model.pos.y = 1;
         model.pos.z = -5 + i / 0.3f;
@@ -78,7 +79,7 @@ int main(void)
 
         for (int i = 0; i < 5; ++i)
         {
-            DrawModelEx(models[i].model, models[i].pos, (Vector3){1, 0, 0}, 0, (Vector3){1, 1, 1}, WHITE);
+            DrawModelEx(models[i].outer, models[i].pos, (Vector3){1, 0, 0}, 0, (Vector3){1, 1, 1}, WHITE);
         }
 
         DrawGrid(10, 1.0f); // Draw a grid
