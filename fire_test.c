@@ -15,8 +15,7 @@ const int screenHeight = 720;
 
 typedef struct sModel
 {
-    Model inner;
-    Model outer;
+    Model model;
     Vector3 pos;
 } sModel;
 
@@ -35,25 +34,28 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "raylib [shaders] example - Shader Art Coding");
 
     Texture2D texture = LoadTexture("../resources/textures/luos/Noise_Gradients/T_Random_53.png");
-    Texture2D texture2 = LoadTexture("../resources/textures/luos/Noise_Gradients/T_Random_46.png");
+    Texture2D texture2 = LoadTexture("../resources/textures/luos/Noise_Gradients/T_Random_53.png");
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
     Shader shader =
-        LoadShader("../resources/shaders/glsl330/rotation.vert", "../resources/shaders/glsl330/rotation.frag");
+        LoadShader("../resources/shaders/glsl330/rotation.vert", "../resources/shaders/glsl330/forcefield.frag");
     int secondsLoc = GetShaderLocation(shader, "seconds");
     float time = 0;
     shader.locs[SHADER_LOC_MAP_EMISSION] = GetShaderLocation(shader, "texture1");
+
+    Model sphere = LoadModel("../resources/models/obj/sphere.obj");
 
     sModel models[5];
     for (int i = 0; i < 5; ++i)
     {
         sModel model;
-        model.outer = LoadModelFromMesh(GenMeshSphere(0.2, 32, 32));
-        model.outer.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
+        model.model = sphere;
+        // model.model = LoadModelFromMesh(GenMeshCylinder(1, 1, 32));
+        model.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
         // Using MATERIAL_MAP_EMISSION as a spare slot to use for 2nd texture
-        model.outer.materials[0].maps[MATERIAL_MAP_EMISSION].texture = texture2;
-        model.outer.materials[0].shader = shader;
+        model.model.materials[0].maps[MATERIAL_MAP_EMISSION].texture = texture2;
+        model.model.materials[0].shader = shader;
         model.pos.x = 0;
         model.pos.y = 1;
         model.pos.z = -5 + i / 0.3f;
@@ -68,10 +70,10 @@ int main(void)
 
         UpdateCamera(&camera, CAMERA_FREE);
 
-        for (int i = 0; i < 5; ++i)
-        {
-            models[i].pos.z -= 0.2f * GetFrameTime();
-        }
+        // for (int i = 0; i < 5; ++i)
+        // {
+        //     models[i].pos.z -= 0.2f * GetFrameTime();
+        // }
 
         BeginDrawing();
         ClearBackground(WHITE);
@@ -79,7 +81,7 @@ int main(void)
 
         for (int i = 0; i < 5; ++i)
         {
-            DrawModelEx(models[i].outer, models[i].pos, (Vector3){1, 0, 0}, 0, (Vector3){1, 1, 1}, WHITE);
+            DrawModelEx(models[i].model, models[i].pos, (Vector3){1, 0, 0}, 0, (Vector3){1, 1, 1}, WHITE);
         }
 
         DrawGrid(10, 1.0f); // Draw a grid
