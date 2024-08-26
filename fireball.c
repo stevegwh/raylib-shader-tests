@@ -33,24 +33,12 @@ int main(void)
     // Initialization
     InitWindow(screenWidth, screenHeight, "raylib [shaders] example - Shader Art Coding");
 
-<<<<<<<< HEAD:portal.c
-    Texture2D texture = LoadTexture("../resources/textures/luos/Noise_Gradients/T_Random_50.png");
-    Texture2D texture2 = LoadTexture("../resources/textures/luos/Noise_Gradients/T_Random_45.png");
-
-    SetTargetFPS(60); // Set our game to run at 60 frames-per-second
-
-    // Model model = LoadModelFromMesh(GenMeshSphere(0.5, 32, 32));
-    // Model model = LoadModelFromMesh(GenMeshCylinder(1, 1, 32));
-    Model model = LoadModelFromMesh(GenMeshPlane(1, 1, 1, 1));
-
-    Shader shader = LoadShader(NULL, "../resources/shaders/custom/portal.fs");
-========
     Texture2D texture = LoadTexture("../resources/textures/luos/Noise_Gradients/T_Random_54.png");
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
     Shader shader = LoadShader("../resources/shaders/glsl330/rotation.vert", "../resources/shaders/custom/fireball.fs");
->>>>>>>> main:fireball.c
+
     int secondsLoc = GetShaderLocation(shader, "seconds");
     float time = 0;
 
@@ -89,15 +77,10 @@ int main(void)
         ClearBackground(WHITE);
         BeginMode3D(camera);
 
-<<<<<<<< HEAD:portal.c
-        // DrawModel(model, Vector3Zero(), 1.0f, WHITE);
-        DrawModelEx(model, (Vector3){0, 1, 0}, (Vector3){1, 0, 0}, 90, (Vector3){1, 1, 1}, WHITE);
-========
         for (int i = 0; i < 5; ++i)
         {
             DrawModelEx(models[i].model, models[i].pos, (Vector3){1, 0, 0}, 0, (Vector3){1, 1, 1}, WHITE);
         }
->>>>>>>> main:fireball.c
 
         DrawGrid(10, 1.0f); // Draw a grid
         EndMode3D();
