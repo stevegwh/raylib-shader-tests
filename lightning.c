@@ -39,7 +39,7 @@ int main(void)
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
     Shader shader =
-        LoadShader("../resources/shaders/glsl330/rotation.vert", "../resources/shaders/glsl330/forcefield.frag");
+        LoadShader("../resources/shaders/glsl330/rotation.vert", "../resources/shaders/custom/lighting.fs");
     int secondsLoc = GetShaderLocation(shader, "seconds");
     float time = 0;
     shader.locs[SHADER_LOC_MAP_EMISSION] = GetShaderLocation(shader, "texture1");
