@@ -46,6 +46,8 @@ int main(void)
 
     Model sphere = LoadModel("../resources/models/obj/sphere.obj");
 
+    DisableCursor();
+
     sModel models[5];
     for (int i = 0; i < 5; ++i)
     {
