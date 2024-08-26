@@ -1,4 +1,6 @@
 #include "raylib.h"
+#include "raymath.h"
+#include "rlgl.h"
 #include <stdlib.h>
 
 #define GLSL_VERSION 330
@@ -8,52 +10,69 @@ const int screenHeight = 720;
 
 int main(void)
 {
+    // Define the camera to look into our 3d world
+    Camera camera = {0};
+    camera.position = (Vector3){0.0f, 1.0f, 2.0f}; // Camera position
+    camera.target = (Vector3){0.0f, 0.0f, 0.0f};   // Camera looking at point
+    camera.up = (Vector3){0.0f, 1.0f, 0.0f};       // Camera up vector (rotation towards target)
+    camera.fovy = 45.0f;                           // Camera field-of-view Y
+    camera.projection = CAMERA_PERSPECTIVE;        // Camera projection type
+
     const Vector2 screenSize = {.x = screenWidth, .y = screenHeight};
     // Initialization
     InitWindow(screenWidth, screenHeight, "raylib [shaders] example - Shader Art Coding");
 
-    // Create a RenderTexture2D to be used for render to texture
-    RenderTexture2D target = LoadRenderTexture(GetScreenWidth(), GetScreenHeight());
+    Texture2D texture = LoadTexture("../resources/textures/luos/Noise_Gradients/T_Random_59.png");
+    Texture2D texture2 = LoadTexture("../resources/textures/luos/Noise_Gradients/T_Random_45.png");
 
-    // Load shader and setup location points and values
-    Shader shader = LoadShader(NULL, "resources/funkyfragment.fs");
-    int secondsLoc = GetShaderLocation(shader, "seconds");
-    int renderSizeLoc = GetShaderLocation(shader, "renderSize");
-    SetShaderValue(shader, renderSizeLoc, &screenSize, SHADER_UNIFORM_VEC2);
-
-    float seconds = 0.0f;
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
+
+    Model sphere = LoadModelFromMesh(GenMeshSphere(0.5, 32, 32));
+    Model model = LoadModel("../resources/models/obj/cylinder.obj");
+    // Model model = LoadModelFromMesh(GenMeshCylinder(1, 1, 32));
+    // Model model = LoadModelFromMesh(GenMeshPlane(1, 1, 1, 1));
+
+    Shader shader = LoadShader(NULL, "../resources/shaders/custom/fire.fs");
+    int secondsLoc = GetShaderLocation(shader, "seconds");
+    float time = 0;
+
+    model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
+    // Using MATERIAL_MAP_EMISSION as a spare slot to use for 2nd texture
+    model.materials[0].maps[MATERIAL_MAP_EMISSION].texture = texture2;
+    shader.locs[SHADER_LOC_MAP_EMISSION] = GetShaderLocation(shader, "texture1");
+    model.materials[0].shader = shader;
+
+    DisableCursor();
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-        // Update
-        seconds += GetFrameTime();
-        SetShaderValue(shader, secondsLoc, &seconds, SHADER_UNIFORM_FLOAT);
+        time += GetFrameTime();
+        SetShaderValue(shader, secondsLoc, &time, SHADER_UNIFORM_FLOAT);
 
-        // Draw
-        // Using a render texture to draw
-        BeginTextureMode(target);
-        ClearBackground(BLACK);
-        // Draw a rectangle in shader mode to be used as shader canvas
-        DrawRectangle(0, 0, GetScreenWidth(), GetScreenHeight(), BLACK);
-        EndTextureMode();
+        UpdateCamera(&camera, CAMERA_FREE);
 
         BeginDrawing();
+        ClearBackground(BLUE);
+        BeginMode3D(camera);
 
-        ClearBackground(BLACK);
+        DrawModel(sphere, Vector3Zero(), 1.0f, WHITE);
+        rlDisableBackfaceCulling();
+        DrawModelEx(model, (Vector3){0, 0, 0}, (Vector3){1, 0, 0}, 180, (Vector3){1, 0.5, 1}, WHITE);
+        rlEnableBackfaceCulling();
 
-        // Begin shader mode
-        BeginShaderMode(shader);
-        DrawTextureV(target.texture, (Vector2){0, 0}, WHITE);
-        EndShaderMode();
-
+        DrawGrid(10, 1.0f); // Draw a grid
+        EndMode3D();
         EndDrawing();
     }
 
     // De-Initialization
-    UnloadRenderTexture(target); // Unload render texture
-    UnloadShader(shader);        // Unload shader
+
+    UnloadTexture(texture);
+    UnloadTexture(texture2);
+    UnloadShader(shader);
+    UnloadModel(model);
+    UnloadModel(sphere);
 
     CloseWindow(); // Close window and OpenGL context
 

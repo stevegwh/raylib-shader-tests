@@ -33,30 +33,17 @@ int main(void)
     // Initialization
     InitWindow(screenWidth, screenHeight, "raylib [shaders] example - Shader Art Coding");
 
-<<<<<<<< HEAD:portal.c
-    Texture2D texture = LoadTexture("../resources/textures/luos/Noise_Gradients/T_Random_50.png");
-    Texture2D texture2 = LoadTexture("../resources/textures/luos/Noise_Gradients/T_Random_45.png");
+    Texture2D texture = LoadTexture("../resources/textures/luos/Noise_Gradients/T_Random_53.png");
+    Texture2D texture2 = LoadTexture("../resources/textures/luos/Noise_Gradients/T_Random_53.png");
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
-    // Model model = LoadModelFromMesh(GenMeshSphere(0.5, 32, 32));
-    // Model model = LoadModelFromMesh(GenMeshCylinder(1, 1, 32));
-    Model model = LoadModelFromMesh(GenMeshPlane(1, 1, 1, 1));
-
-    Shader shader = LoadShader(NULL, "../resources/shaders/custom/portal.fs");
-========
-    Texture2D texture = LoadTexture("../resources/textures/luos/Noise_Gradients/T_Random_54.png");
-
-    SetTargetFPS(60); // Set our game to run at 60 frames-per-second
-
-    Shader shader = LoadShader("../resources/shaders/glsl330/rotation.vert", "../resources/shaders/custom/fireball.fs");
->>>>>>>> main:fireball.c
+    Shader shader = LoadShader(NULL, "../resources/shaders/custom/lightning.fs");
     int secondsLoc = GetShaderLocation(shader, "seconds");
     float time = 0;
+    shader.locs[SHADER_LOC_MAP_EMISSION] = GetShaderLocation(shader, "texture1");
 
     Model sphere = LoadModel("../resources/models/obj/sphere.obj");
-    sphere.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
-    sphere.materials[0].shader = shader;
 
     DisableCursor();
 
@@ -66,6 +53,10 @@ int main(void)
         sModel model;
         model.model = sphere;
         // model.model = LoadModelFromMesh(GenMeshCylinder(1, 1, 32));
+        model.model.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
+        // Using MATERIAL_MAP_EMISSION as a spare slot to use for 2nd texture
+        model.model.materials[0].maps[MATERIAL_MAP_EMISSION].texture = texture2;
+        model.model.materials[0].shader = shader;
         model.pos.x = 0;
         model.pos.y = 1;
         model.pos.z = -5 + i / 0.3f;
@@ -89,15 +80,10 @@ int main(void)
         ClearBackground(WHITE);
         BeginMode3D(camera);
 
-<<<<<<<< HEAD:portal.c
-        // DrawModel(model, Vector3Zero(), 1.0f, WHITE);
-        DrawModelEx(model, (Vector3){0, 1, 0}, (Vector3){1, 0, 0}, 90, (Vector3){1, 1, 1}, WHITE);
-========
         for (int i = 0; i < 5; ++i)
         {
             DrawModelEx(models[i].model, models[i].pos, (Vector3){1, 0, 0}, 0, (Vector3){1, 1, 1}, WHITE);
         }
->>>>>>>> main:fireball.c
 
         DrawGrid(10, 1.0f); // Draw a grid
         EndMode3D();
@@ -107,6 +93,7 @@ int main(void)
     // De-Initialization
 
     UnloadTexture(texture);
+    UnloadTexture(texture2);
     UnloadShader(shader);
     // UnloadModel(model);
 
