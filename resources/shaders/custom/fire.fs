@@ -28,7 +28,7 @@ vec4 getColorRamp(float v, float feather){
 void main()
 {
     vec2 uv = fragTexCoord;
-    uv.x += seconds * 0.2;
+    uv.x += seconds * 0.5;
     float grad = mix(0.0, 2.0, fragTexCoord.x - 0.45);
     
     vec4 d = texture(texture1, fragTexCoord) * 0.1;
@@ -46,12 +46,12 @@ void main()
 
     // Harder masks (Choose hard or soft)
     // Hard mask
-    // float nn = step(0.5, n.r);
-    // if (nn < 1.0) discard;
+    float nn = step(0.5, n.r);
+    if (nn < 1.0) discard;
     // -----
     // Soft mask
-    float nn = smoothstep(0.5, 0.65, n.r);
-    if (nn < 0.3) discard; // Adjust this for feathering
+    // float nn = smoothstep(0.5, 0.65, n.r);
+    // if (nn < 0.3) discard; // Adjust this for feathering
     // -----
     fragColor = vec4(nn, nn, nn, 1) * colorMix;
     // -----

@@ -32,7 +32,7 @@ int main(void)
     // Model model = LoadModelFromMesh(GenMeshCylinder(1, 1, 32));
     // Model model = LoadModelFromMesh(GenMeshPlane(1, 1, 1, 1));
 
-    Shader shader = LoadShader(NULL, "../resources/shaders/glsl330/rotation.frag");
+    Shader shader = LoadShader(NULL, "../resources/shaders/custom/fire.fs");
     int secondsLoc = GetShaderLocation(shader, "seconds");
     float time = 0;
 
