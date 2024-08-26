@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "raymath.h"
+#include "rlgl.h"
 #include <stdlib.h>
 
 #define GLSL_VERSION 330
@@ -26,7 +27,8 @@ int main(void)
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
-    Model model = LoadModelFromMesh(GenMeshSphere(0.5, 32, 32));
+    Model sphere = LoadModelFromMesh(GenMeshSphere(0.5, 32, 32));
+    Model model = LoadModel("../resources/models/obj/cylinder.obj");
     // Model model = LoadModelFromMesh(GenMeshCylinder(1, 1, 32));
     // Model model = LoadModelFromMesh(GenMeshPlane(1, 1, 1, 1));
 
@@ -40,6 +42,8 @@ int main(void)
     shader.locs[SHADER_LOC_MAP_EMISSION] = GetShaderLocation(shader, "texture1");
     model.materials[0].shader = shader;
 
+    DisableCursor();
+
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
@@ -49,11 +53,13 @@ int main(void)
         UpdateCamera(&camera, CAMERA_FREE);
 
         BeginDrawing();
-        ClearBackground(BLACK);
+        ClearBackground(BLUE);
         BeginMode3D(camera);
 
-        // DrawModel(model, Vector3Zero(), 1.0f, WHITE);
-        DrawModelEx(model, (Vector3){0, 1, 0}, (Vector3){1, 0, 0}, -90, (Vector3){1, 1, 1}, WHITE);
+        DrawModel(sphere, Vector3Zero(), 1.0f, WHITE);
+        rlDisableBackfaceCulling();
+        DrawModelEx(model, (Vector3){0, 0, 0}, (Vector3){1, 0, 0}, 180, (Vector3){1, 0.5, 1}, WHITE);
+        rlEnableBackfaceCulling();
 
         DrawGrid(10, 1.0f); // Draw a grid
         EndMode3D();
@@ -66,6 +72,7 @@ int main(void)
     UnloadTexture(texture2);
     UnloadShader(shader);
     UnloadModel(model);
+    UnloadModel(sphere);
 
     CloseWindow(); // Close window and OpenGL context
 
