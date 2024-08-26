@@ -37,12 +37,7 @@ int main(void)
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
-<<<<<<<< HEAD:lightning.c
-    Shader shader =
-        LoadShader("../resources/shaders/glsl330/rotation.vert", "../resources/shaders/custom/lighting.fs");
-========
     Shader shader = LoadShader("../resources/shaders/glsl330/rotation.vert", "../resources/shaders/custom/fireball.fs");
->>>>>>>> fireball:fireball.c
     int secondsLoc = GetShaderLocation(shader, "seconds");
     float time = 0;
 
